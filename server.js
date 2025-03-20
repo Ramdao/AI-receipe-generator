@@ -14,7 +14,7 @@ const openai = new OpenAI({
 });
 
 // API route to generate recipe
-app.post('/generate-recipe', async (req, res) => {
+app.post('https://ai-receipe-generator.onrender.com', async (req, res) => {
     const { title } = req.body;
 
     try {
