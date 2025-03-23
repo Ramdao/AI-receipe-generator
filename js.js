@@ -4,37 +4,32 @@ import { BrowserMultiFormatReader } from '@zxing/browser';
 const videoElement = document.getElementById('video');
 const outputElement = document.getElementById('output');
 const recipeElement = document.getElementById('recipe');
-const switchCameraButton = document.getElementById('switchCamera');
+const switchButton = document.getElementById('switchCamera'); // Button to switch cameras
 const codeReader = new BrowserMultiFormatReader();
 
-// Store the currently active video device
-let currentDeviceId = null;
-let activeStream = null;
+let videoDevices = [];
+let currentDeviceIndex = 0; // Keep track of current camera
 
-// Function to start the QR scanner with a specific camera device
-async function startScanner(deviceId) {
+// Function to start scanning with the selected camera
+async function startScanner(deviceId = null) {
     try {
-        // Stop any previously active video stream
-        if (activeStream) {
-            const tracks = activeStream.getTracks();
-            tracks.forEach(track => track.stop());
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        videoDevices = devices.filter(device => device.kind === 'videoinput');
+
+        if (videoDevices.length === 0) {
+            console.error("No video input devices found.");
+            return;
         }
 
-        // Set up the new camera stream
-        const stream = await navigator.mediaDevices.getUserMedia({
-            video: { deviceId: { exact: deviceId } },
-        });
+        // Use the selected camera (or default to first one)
+        const selectedDeviceId = deviceId || videoDevices[currentDeviceIndex].deviceId;
 
-        activeStream = stream;
-        videoElement.srcObject = stream;
-
-        // Start the QR code scanning
-        codeReader.decodeFromVideoDevice(deviceId, videoElement, async (result, err) => {
+        codeReader.decodeFromVideoDevice(selectedDeviceId, videoElement, async (result, err) => {
             if (result) {
                 const foodItem = result.text;
                 outputElement.textContent = `Scanned: ${foodItem}`;
                 console.log("QR Code Scanned:", foodItem);
-                
+
                 // Fetch and display recipe
                 const recipe = await generateRecipe(foodItem);
                 recipeElement.innerHTML = `<h2>Recipe for ${foodItem}</h2><p>${recipe}</p>`;
@@ -62,44 +57,23 @@ async function generateRecipe(title) {
     }
 }
 
-// Function to switch between cameras
-async function switchCamera() {
-    try {
-        // Get all video input devices
-        const devices = await navigator.mediaDevices.enumerateDevices();
-        const videoDevices = devices.filter(device => device.kind === 'videoinput');
-
-        if (videoDevices.length > 1) {
-            // Find the next camera device
-            const nextDevice = videoDevices.find(device => device.deviceId !== currentDeviceId);
-            currentDeviceId = nextDevice ? nextDevice.deviceId : videoDevices[0].deviceId;
-
-            // Start scanner with the selected camera
-            startScanner(currentDeviceId);
-        } else {
-            console.log("No additional cameras found.");
-        }
-    } catch (error) {
-        console.error("Error switching camera:", error);
+// Function to switch camera
+function switchCamera() {
+    if (videoDevices.length < 2) {
+        console.warn("No alternative camera found.");
+        return;
     }
+
+    // Toggle between available cameras
+    currentDeviceIndex = (currentDeviceIndex + 1) % videoDevices.length;
+    console.log(`Switching to camera: ${videoDevices[currentDeviceIndex].label}`);
+
+    // Restart scanner with the new camera
+    startScanner(videoDevices[currentDeviceIndex].deviceId);
 }
 
-// Event listener for the "Switch Camera" button
-switchCameraButton.addEventListener('click', switchCamera);
+// Attach event to switch camera button
+switchButton.addEventListener("click", switchCamera);
 
-// Start scanner when page loads with the first available camera
-window.onload = async () => {
-    try {
-        const devices = await navigator.mediaDevices.enumerateDevices();
-        const videoDevices = devices.filter(device => device.kind === 'videoinput');
-        
-        if (videoDevices.length > 0) {
-            currentDeviceId = videoDevices[0].deviceId;
-            startScanner(currentDeviceId);
-        } else {
-            console.error("No video input devices found.");
-        }
-    } catch (error) {
-        console.error("Error accessing camera:", error);
-    }
-};
+// Start scanner when page loads
+window.onload = () => startScanner();
