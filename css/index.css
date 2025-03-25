@@ -228,32 +228,32 @@ display: inline-block;
 @media (min-width: 390px) {
     h1{
         position: absolute;
-        left: 40%;
+        left: 20%;
     }
 
     #video{
-      margin-left: 40%;
+      margin-left: 15%;
       margin-top:150px;
     }
 
     #switchCamera{
-     margin-left: 40%;
+     margin-left: 15%;
      margin-top:110px;
         
     }
 
     .rectangle-div {
         position: absolute;
-        left: 25%;
-        width: 100%;
+        
+        width: 87%;
         max-width: 600px; 
     }
     .rectangle-div2 {
         position: absolute;
-        left: 26%;
-        width: 100%; /* Keep elements centered and not too wide */
+     
+        width: 92%; /* Keep elements centered and not too wide */
         max-width: 600px; /* Prevent stretching on large screens */
-        top:120%;
+        top:90%;
       
     }
 
