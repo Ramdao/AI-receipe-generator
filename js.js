@@ -4,11 +4,11 @@ import { BrowserMultiFormatReader } from '@zxing/browser';
 const videoElement = document.getElementById('video');
 const outputElement = document.getElementById('output');
 const recipeElement = document.getElementById('recipe');
-const switchButton = document.getElementById('switchCamera'); // Button to switch cameras
+const switchButton = document.getElementById('switchCamera'); 
 const codeReader = new BrowserMultiFormatReader();
 
 let videoDevices = [];
-let currentDeviceIndex = 0; // Keep track of current camera
+let currentDeviceIndex = 0; 
 
 // Function to start scanning with the selected camera
 async function startScanner(deviceId = null) {
@@ -21,7 +21,6 @@ async function startScanner(deviceId = null) {
             return;
         }
 
-        // Use the selected camera (or default to first one)
         const selectedDeviceId = deviceId || videoDevices[currentDeviceIndex].deviceId;
 
         codeReader.decodeFromVideoDevice(selectedDeviceId, videoElement, async (result, err) => {
@@ -32,7 +31,7 @@ async function startScanner(deviceId = null) {
 
                 // Fetch and display recipe
                 const recipe = await generateRecipe(foodItem);
-                recipeElement.innerHTML = `<h2>Recipe for ${foodItem}</h2><p>${recipe}</p>`;
+                displayRecipe(foodItem, recipe);
             }
         });
     } catch (error) {
@@ -57,6 +56,27 @@ async function generateRecipe(title) {
     }
 }
 
+// Function to format and display the recipe
+function displayRecipe(foodItem, recipeText) {
+    // Extract title, ingredients, and instructions using regex
+    const titleMatch = recipeText.match(/^(.*?) Recipe:/);
+    const ingredientsMatch = recipeText.match(/Ingredients:\s*([\s\S]*?)Instructions:/);
+    const instructionsMatch = recipeText.match(/Instructions:\s*([\s\S]*)/);
+
+    const title = titleMatch ? titleMatch[1] : foodItem;
+    const ingredients = ingredientsMatch ? ingredientsMatch[1].trim().split("\n- ").slice(1) : [];
+    const instructions = instructionsMatch ? instructionsMatch[1].trim().split(/\d+\.\s/).slice(1) : [];
+
+    // Format and display the recipe
+    recipeElement.innerHTML = `
+        <h2>${title}</h2>
+        <h3>Ingredients:</h3>
+        <ul>${ingredients.map(ing => `<li>${ing}</li>`).join("")}</ul>
+        <h3>Instructions:</h3>
+        <ol>${instructions.map(step => `<li>${step}</li>`).join("")}</ol>
+    `;
+}
+
 // Function to switch camera
 function switchCamera() {
     if (videoDevices.length < 2) {
@@ -64,11 +84,9 @@ function switchCamera() {
         return;
     }
 
-    // Toggle between available cameras
     currentDeviceIndex = (currentDeviceIndex + 1) % videoDevices.length;
     console.log(`Switching to camera: ${videoDevices[currentDeviceIndex].label}`);
 
-    // Restart scanner with the new camera
     startScanner(videoDevices[currentDeviceIndex].deviceId);
 }
 

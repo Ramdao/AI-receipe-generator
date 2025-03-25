@@ -4,13 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Recipe Scanner</title>
+    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=SF+Pro+Text:wght@600&display=swap" />
 </head>
 <body>
-    <h1>Scan a QR Code to Get a Recipe</h1>
+    <div id="screen">
+        <!-- Status bar -->
+        <div class="statusbar">
+            <div class="notch"></div>
+            <div class="left-side">
+                <div class="statusbar-time">
+                    <div class="time">9:41</div>
+                </div>
+            </div>
+            <div class="right-side">
+                <img class="statusbar-battery-icon" alt="" src="./img/_StatusBar-battery.svg">
+                <img class="wifi-icon" alt="" src="./img/Wifi.svg">
+                <img class="icon-mobile-signal" alt="" src="./img/Mobile Signal.svg">
+            </div>
+        </div>
+        
+        <!-- Header -->
+        <header>
+            <h1>Scan the product barcode to get recipes</h1>
+        </header>
+    </div>
+
+    <!-- QR Code Scanner and Recipe Display -->
     <button id="switchCamera">Switch Camera</button>
     <video id="video" width="300" height="200" autoplay></video>
-    <p id="output"></p>
-    <div id="recipe"></div>
+    <div class="rectangle-div">
+        <p id="output"></p>
+        <div id="recipe"></div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="rectangle-div2">
+        <div class="nav-item">
+            <img class="material-symbolshome-rounded-icon" alt="Home" src="./img/material-symbols_home-rounded.svg">
+            <div class="home">Home</div>
+        </div>
+        <div class="nav-item">
+            <img class="material-symbolssearch-rounde-icon" alt="Search" src="./img/material-symbols_search-rounded.svg">
+            <div class="search">Search</div>
+        </div>
+        <div class="nav-item">
+            <img class="sibarcode-fill-icon" alt="Scanner" src="./img/si_barcode-fill.svg">
+            <div class="scanner">Scanner</div>
+        </div>
+        <div class="nav-item">
+            <img class="mynauicart-solid-icon" alt="Cart" src="./img/mynaui_cart-solid.svg">
+            <div class="cart">Cart</div>
+        </div>
+    </div>
+
     <script type="module" src="js.js"></script>
 </body>
 </html>
