@@ -133,6 +133,10 @@ display: inline-block;
     top:30%;
     }
 
+#video{
+    
+    margin-top: 30px;
+}
 
 .home {
     width: 100%;
@@ -222,18 +226,34 @@ display: inline-block;
 }
 
 @media (min-width: 390px) {
-    * {
-       
-        justify-content: flex-start;
-        align-items: center;
-        flex-direction: column; /* This applies to all elements, changing layout to column */
+    h1{
+        position: absolute;
+        left: 40%;
     }
 
-    .rectangle-div,
-    .rectangle-div2 {
+    #video{
+      margin-left: 40%;
+      margin-top:150px;
+    }
+
+    #switchCamera{
+     margin-left: 40%;
+     margin-top:110px;
         
+    }
+
+    .rectangle-div {
+        position: absolute;
+        left: 25%;
+        width: 100%;
+        max-width: 600px; 
+    }
+    .rectangle-div2 {
+        position: absolute;
+        left: 26%;
         width: 100%; /* Keep elements centered and not too wide */
         max-width: 600px; /* Prevent stretching on large screens */
+        top:120%;
       
     }
 
