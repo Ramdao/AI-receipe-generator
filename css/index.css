@@ -249,13 +249,13 @@ display: inline-block;
     }
 
     .rectangle-div {
-        position: absolute;
+       
         
         width: 90%;
         max-width: 600px; 
     }
     .rectangle-div2 {
-        position: absolute;
+        
      
         width: 95%; /* Keep elements centered and not too wide */
         max-width: 600px; /* Prevent stretching on large screens */
