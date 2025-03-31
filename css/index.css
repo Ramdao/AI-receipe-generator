@@ -255,11 +255,11 @@ display: inline-block;
         
         width: 90%;
         max-width: 600px; 
-        min-height: 320px;
+        
     }
     .rectangle-div2 {
         
-        position: fixed;
+      
         width: 90%; /* Keep elements centered and not too wide */
         max-width: 600px; /* Prevent stretching on large screens */
         top:80%;
