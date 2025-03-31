@@ -238,7 +238,9 @@ display: inline-block;
     }
 
     #video{
-      margin-left: 15%;
+      width: 40vw;  
+      height: auto;
+      margin-left: 30%;
       margin-top:150px;
     }
 
@@ -253,13 +255,14 @@ display: inline-block;
         
         width: 90%;
         max-width: 600px; 
+        min-height: 320px;
     }
     .rectangle-div2 {
         
-     
-        width: 95%; /* Keep elements centered and not too wide */
+        position: fixed;
+        width: 90%; /* Keep elements centered and not too wide */
         max-width: 600px; /* Prevent stretching on large screens */
-        top:100%;
+        top:80%;
       
     }
 
