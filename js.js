@@ -4,11 +4,11 @@ import { BrowserMultiFormatReader } from '@zxing/browser';
 const videoElement = document.getElementById('video');
 const outputElement = document.getElementById('output');
 const recipeElement = document.getElementById('recipe');
-const switchButton = document.getElementById('switchCamera'); 
+const switchButton = document.getElementById('switchCamera');
 const codeReader = new BrowserMultiFormatReader();
 
 let videoDevices = [];
-let currentDeviceIndex = 0; 
+let currentDeviceIndex = 0;
 
 // Function to start scanning with the selected camera
 async function startScanner(deviceId = null) {
@@ -29,9 +29,11 @@ async function startScanner(deviceId = null) {
                 outputElement.textContent = `Scanned: ${foodItem}`;
                 console.log("QR Code Scanned:", foodItem);
 
-                // Fetch and display recipe
-                const recipe = await generateRecipe(foodItem);
-                displayRecipe(foodItem, recipe);
+                // Save the last scanned item to sessionStorage
+                sessionStorage.setItem("lastScanned", foodItem);
+
+                // Fetch and display new recipe
+                fetchAndDisplayRecipe(foodItem);
             }
         });
     } catch (error) {
@@ -40,7 +42,7 @@ async function startScanner(deviceId = null) {
 }
 
 // Function to fetch a recipe from the backend
-async function generateRecipe(title) {
+async function fetchAndDisplayRecipe(title) {
     try {
         const response = await fetch('https://ai-receipe-generator.onrender.com/generate-recipe', {
             method: 'POST',
@@ -49,21 +51,23 @@ async function generateRecipe(title) {
         });
 
         const data = await response.json();
-        return data.recipe || "Recipe not found.";
+        displayRecipe(title, data.recipe || "Recipe not found.");
     } catch (error) {
         console.error("Error fetching recipe:", error);
-        return "Failed to fetch recipe.";
+        displayRecipe(title, "Failed to fetch recipe.");
     }
 }
 
 // Function to format and display the recipe
 function displayRecipe(foodItem, recipeText) {
-    // Extract title, ingredients, and instructions using regex
-    const titleMatch = recipeText.match(/^(.*?) Recipe:/);
+    // Extract the title (first line)
+    const lines = recipeText.trim().split("\n");
+    const title = lines[0].trim();  
+
+    // Extract ingredients and instructions using regex
     const ingredientsMatch = recipeText.match(/Ingredients:\s*([\s\S]*?)Instructions:/);
     const instructionsMatch = recipeText.match(/Instructions:\s*([\s\S]*)/);
 
-    const title = titleMatch ? titleMatch[1] : foodItem;
     const ingredients = ingredientsMatch ? ingredientsMatch[1].trim().split("\n- ").slice(1) : [];
     const instructions = instructionsMatch ? instructionsMatch[1].trim().split(/\d+\.\s/).slice(1) : [];
 
@@ -74,7 +78,11 @@ function displayRecipe(foodItem, recipeText) {
         <ul>${ingredients.map(ing => `<li>${ing}</li>`).join("")}</ul>
         <h3>Instructions:</h3>
         <ol>${instructions.map(step => `<li>${step}</li>`).join("")}</ol>
+        <button id="refreshRecipe">Get New Recipe</button>
     `;
+
+    // Add event listener to refresh button
+    document.getElementById("refreshRecipe").addEventListener("click", () => fetchAndDisplayRecipe(foodItem));
 }
 
 // Function to switch camera
@@ -93,5 +101,11 @@ function switchCamera() {
 // Attach event to switch camera button
 switchButton.addEventListener("click", switchCamera);
 
-// Start scanner when page loads
-window.onload = () => startScanner();
+// Load last scanned food item on page refresh
+window.onload = () => {
+    startScanner();
+    const lastScanned = sessionStorage.getItem("lastScanned");
+    if (lastScanned) {
+        fetchAndDisplayRecipe(lastScanned);
+    }
+};
