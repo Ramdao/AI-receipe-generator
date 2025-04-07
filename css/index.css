@@ -7,7 +7,7 @@ bod
     
 }
 h1{
-margin-left: 37%;
+margin-left: 35%;
 width: 310px;
 position: absolute;
 font-size: 24px;
@@ -22,7 +22,7 @@ display: inline-block;
 }
 #video{
     margin-top: 10%;
-    margin-left: 38%;
+    margin-left: 36%;
 }
 .notch {
     position: relative;
@@ -125,7 +125,7 @@ display: inline-block;
 #switchCamera{
     position: absolute;
     left: 45%;
-    top:24%;
+    top:22%;
     border-radius: 5px;
     color: #fff;
     background-color: #559de1;
@@ -283,7 +283,7 @@ display: inline-block;
     #switchCamera {
         position: absolute;
         left:25%;
-        top: 24%;
+        top: 40%;
         
     }
 
