@@ -73,7 +73,7 @@ function displayRecipe(foodItem, recipeText) {
 
     // Format and display the recipe
     recipeElement.innerHTML = `
-        <h2>${title}</h2>
+        <h2>Generating Recipe for: ${foodItem}</h2>
         <h3>Ingredients:</h3>
         <ul>${ingredients.map(ing => `<li>${ing}</li>`).join("")}</ul>
         <h3>Instructions:</h3>
