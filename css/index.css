@@ -4,11 +4,12 @@ bod
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 h1{
-
+margin-left: 37%;
 width: 310px;
-position: relative;
+position: absolute;
 font-size: 24px;
 letter-spacing: -0.32px;
 line-height: 32px;
@@ -17,6 +18,11 @@ font-family: Inter;
 color: #1a1a1a;
 text-align: center;
 display: inline-block;
+
+}
+#video{
+    margin-top: 10%;
+    margin-left: 38%;
 }
 .notch {
     position: relative;
@@ -89,12 +95,14 @@ display: inline-block;
 }
 
 .rectangle-div {
-    width: 75%;
+    margin-left: 26%;
+    
+    
     position: relative;
     border-radius: 24px;
     background-color: #fff;
-    min-height: 360px;  
-    max-height: 80vh;   
+    width: 40%; 
+    height: 25vh;
     overflow-y: auto;   
     padding: 20px;      
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1), 
@@ -102,19 +110,22 @@ display: inline-block;
 }
 
 .rectangle-div2 {
+    margin-left: 30%;
     display: flex;
     margin-top: 10px;
-    width: 87%;
+    width: 35%;
     position: relative;
     box-shadow: 0px -4px 32px rgba(0, 0, 0, 0.25);
     border-radius: 24px 24px 0px 0px;
     background-color: #fff;
     height: 100px;
+    justify-content: center;
 }
 
 #switchCamera{
     position: absolute;
-    left: 30%;
+    left: 45%;
+    top:24%;
     border-radius: 5px;
     color: #fff;
     background-color: #559de1;
@@ -133,10 +144,7 @@ display: inline-block;
     top:30%;
     }
 
-#video{
-    
-    margin-top: 30px;
-}
+
 
 .home {
     width: 100%;
@@ -225,41 +233,40 @@ display: inline-block;
     top:22%;
 }
 
-@media (min-width: 390px) {
+@media (max-width: 500px) {
+   
     h1{
-        position: absolute;
-        left: 15%;
+        margin-left: 10%;
+        
     }
 
-    .statusbar{
-      
-
-        left: -5%;
-    }
+  
 
     #video{
       width: 40vw;  
       height: auto;
-      margin-left: 30%;
-      margin-top:150px;
+      margin-left: 32%;
+      margin-top:25%;
+      
     }
 
     #switchCamera{
      margin-left: 15%;
-     margin-top:110px;
+     margin-top:20%;
         
     }
 
     .rectangle-div {
        
-        
-        width: 90%;
+        margin-left: 2%;
+        margin-top: 10%;
+        width: 87%;
         max-width: 600px; 
         
     }
     .rectangle-div2 {
-        
-      
+        margin-left: 1%;
+        left: 2%;
         width: 90%; /* Keep elements centered and not too wide */
         max-width: 600px; /* Prevent stretching on large screens */
         top:80%;
@@ -267,7 +274,7 @@ display: inline-block;
     }
 
     .statusbar {
-        width: 110%;
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -275,7 +282,7 @@ display: inline-block;
 
     #switchCamera {
         position: absolute;
-        left:100px;
+        left:25%;
         display: block;
         
     }
@@ -308,6 +315,7 @@ display: inline-block;
         align-items: center; /* Center items vertically */
         flex-direction: row; /* Stack items vertically */
         padding: 10px;
+       
     }
 
     /* Adjust individual icons and labels */
@@ -321,7 +329,7 @@ display: inline-block;
     }
 
     .nav-item img {
-        width: 24px; /* Size of icons */
+        width: 24px; 
         height: 24px;
         margin-bottom: 5px;
     }
@@ -330,6 +338,8 @@ display: inline-block;
         font-size: 14px;
         color: #1a1a1a;
     }
+
+   
 }
 
 
