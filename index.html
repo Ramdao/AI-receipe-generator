@@ -11,7 +11,7 @@
 <body>
     <div id="screen">
         <!-- Status bar -->
-        <div class="statusbar">
+        <!-- <div class="statusbar">
             <div class="notch"></div>
             <div class="left-side">
                 <div class="statusbar-time">
@@ -23,7 +23,7 @@
                 <img class="wifi-icon" alt="" src="./img/Wifi.svg">
                 <img class="icon-mobile-signal" alt="" src="./img/Mobile Signal.svg">
             </div>
-        </div>
+        </div> -->
         
         <!-- Header -->
         <header>
@@ -33,14 +33,25 @@
 
     <!-- QR Code Scanner and Recipe Display -->
     <button id="switchCamera">Switch Camera</button>
-    <video id="video" width="300" height="200" autoplay></video>
+<div class="scanner-style">
+    <video id="video" width="100%" height="100%" autoplay></video>
+</div>
+    <div id = "recipe-title"></div>
     <div class="rectangle-div">
         <p id="output"></p>
         <div id="recipe"></div>
     </div>
 
-    <!-- Bottom Navigation -->
     <div class="rectangle-div2">
+        <div id="recipe2"></div>
+    </div>
+    <div id="generate">
+        <img src="./img/iconamoon_restart.svg" class="restart-icon" alt="Restart Icon">
+        <button id="refreshRecipe">Regenerate</button>
+    </div>
+    
+    <!-- Bottom Navigation -->
+    <!-- <div class="rectangle-div2">
         <div class="nav-item">
             <img class="material-symbolshome-rounded-icon" alt="Home" src="./img/material-symbols_home-rounded.svg">
             <div class="home">Home</div>
@@ -57,7 +68,7 @@
             <img class="mynauicart-solid-icon" alt="Cart" src="./img/mynaui_cart-solid.svg">
             <div class="cart">Cart</div>
         </div>
-    </div>
+    </div> -->
 
     <script type="module" src="js.js"></script>
 </body>

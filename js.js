@@ -4,6 +4,8 @@ import { BrowserMultiFormatReader } from '@zxing/browser';
 const videoElement = document.getElementById('video');
 const outputElement = document.getElementById('output');
 const recipeElement = document.getElementById('recipe');
+const recipeElement2 = document.getElementById('recipe2');
+const recipeElement3 = document.getElementById('recipe-title');
 const switchButton = document.getElementById('switchCamera');
 const codeReader = new BrowserMultiFormatReader();
 
@@ -26,11 +28,11 @@ async function startScanner(deviceId = null) {
         codeReader.decodeFromVideoDevice(selectedDeviceId, videoElement, async (result, err) => {
             if (result) {
                 const foodItem = result.text;
-                outputElement.textContent = `Scanned: ${foodItem}`;
+                // outputElement.textContent = `Scanned: ${foodItem}`;
                 console.log("QR Code Scanned:", foodItem);
 
                 // Save the last scanned item to sessionStorage
-                sessionStorage.setItem("lastScanned", foodItem);
+                // sessionStorage.setItem("lastScanned", foodItem);
 
                 // Fetch and display new recipe
                 fetchAndDisplayRecipe(foodItem);
@@ -60,6 +62,7 @@ async function fetchAndDisplayRecipe(title) {
 
 // Function to format and display the recipe
 function displayRecipe(foodItem, recipeText) {
+    document.getElementById("generate").style.display = "block";
     // Extract the title (first line)
     const lines = recipeText.trim().split("\n");
     const title = lines[0].trim();  
@@ -72,13 +75,34 @@ function displayRecipe(foodItem, recipeText) {
     const instructions = instructionsMatch ? instructionsMatch[1].trim().split(/\d+\.\s/).slice(1) : [];
 
     // Format and display the recipe
+    let showIngredients = window.innerWidth <= 500;
+
     recipeElement.innerHTML = `
-        <h2>Generating Recipe for: ${foodItem}</h2>
+        
+        ${
+        showIngredients
+            ? `
+        <h2>${foodItem}</h2>
         <h3>Ingredients:</h3>
-        <ul>${ingredients.map(ing => `<li>${ing}</li>`).join("")}</ul>
+        <ul>${ingredients.map((ing) => `<li>${ing}</li>`).join("")}</ul>
+        `
+            : ""
+        }
+        
         <h3>Instructions:</h3>
-        <ol>${instructions.map(step => `<li>${step}</li>`).join("")}</ol>
-        <button id="refreshRecipe">Get New Recipe</button>
+        <ol>${instructions.map((step) => `<li>${step}</li>`).join("")}</ol>
+        
+    `;
+
+    recipeElement2.innerHTML = ` 
+    <h3>Ingredients:</h3>
+    <ul>${ingredients.map(ing => `<li>${ing}</li>`).join("")}</ul>
+    
+    `;
+
+    recipeElement3.innerHTML = `
+    <h2>${foodItem}</h2>
+
     `;
 
     // Add event listener to refresh button
@@ -104,8 +128,8 @@ switchButton.addEventListener("click", switchCamera);
 // Load last scanned food item on page refresh
 window.onload = () => {
     startScanner();
-    const lastScanned = sessionStorage.getItem("lastScanned");
-    if (lastScanned) {
-        fetchAndDisplayRecipe(lastScanned);
-    }
+    // const lastScanned = sessionStorage.getItem("lastScanned");
+    // if (lastScanned) {
+    //     fetchAndDisplayRecipe(lastScanned);
+    // }
 };
