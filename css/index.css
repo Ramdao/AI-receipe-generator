@@ -15,7 +15,7 @@ body{
 #recipe-title{
     position:absolute;
     top:35%;
-    left:36%;
+    left:49%;
 }
 
 #refreshRecipe{
@@ -60,7 +60,7 @@ body{
     position: absolute;
     width: 310px;
     height: 155px;
-    left:30vw;
+    left:37vw;
     top:10%;
 }
 h1{
@@ -75,9 +75,11 @@ font-family: Inter;
 color: #1a1a1a;
 text-align: center;
 width: 100%;
-right: 2vw;
+left: 3vw;
 
 }
+
+
 
 #recipe{
     margin-left: 15px;
@@ -203,7 +205,7 @@ right: 2vw;
 
 #switchCamera{
     position: absolute;
-    left: 43vw;
+    left: 48vw;
     top:9%;
     border-radius: 5px;
     color: #fff;
@@ -327,7 +329,7 @@ right: 2vw;
         position: absolute;
         width: 250px;
         height: 155px;
-        left:2vw;
+        left:3vw;
         top:10%;
     }
 
