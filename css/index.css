@@ -56,13 +56,51 @@ body{
     background-color: #ffc220;
     cursor: pointer;
 }
-.scanner-style{
+.scanner-style {
     position: absolute;
     width: 310px;
     height: 155px;
-    left:37vw;
-    top:10%;
+    left: 43vw;
+    top: 15%;
+   
+    pointer-events: none; /* allows clicks to pass through */
 }
+
+.corner {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 6px solid #00a6ff; /* neon green or any color you want */
+}
+
+.top-left {
+    top: 0;
+    left: 0;
+    border-right: none;
+    border-bottom: none;
+}
+
+.top-right {
+    top: 0;
+    right: 0;
+    border-left: none;
+    border-bottom: none;
+}
+
+.bottom-left {
+    bottom: 0;
+    left: 0;
+    border-right: none;
+    border-top: none;
+}
+
+.bottom-right {
+    bottom: 0;
+    right: 0;
+    border-left: none;
+    border-top: none;
+}
+
 h1{
 
 width: 310px;
@@ -101,8 +139,7 @@ left: 3vw;
 }
 
 #video{
-    margin-top: 10%;
-    margin-left: 36%;
+   
     object-fit: cover;
     
 }
@@ -321,7 +358,7 @@ left: 3vw;
 
 
     h1{
-        margin-left: 10%;
+        margin-left: -3%;
         
     }
 
@@ -329,8 +366,8 @@ left: 3vw;
         position: absolute;
         width: 250px;
         height: 155px;
-        left:3vw;
-        top:10%;
+        left:22vw;
+        top:15%;
     }
 
    
