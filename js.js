@@ -133,3 +133,7 @@ window.onload = () => {
     //     fetchAndDisplayRecipe(lastScanned);
     // }
 };
+
+document.getElementById('switch').addEventListener('click', function () {
+    window.location.href = 'https://ai-recipe-generator-search-1.onrender.com';
+  });
